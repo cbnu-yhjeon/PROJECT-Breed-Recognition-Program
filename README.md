@@ -14,7 +14,7 @@
 ## 📸 데모 (Screenshots)
 
 <p align="center">
-  <img src="<./demo.gif>" alt="프로그램 실행 데모" width="700"/>
+  <img src="./demo.gif" alt="프로그램 실행 데모" width="700"/>
   <em><p align="center">Streamlit을 이용한 웹 UI 실행 화면</p></em>
 </p>
 
@@ -31,7 +31,21 @@
 - **핵심 라이브러리**: `PyTorch`, `Torchvision`
 - **웹 UI**: `Streamlit`
 - **데이터 처리**: `Pillow`, `NumPy`
-- **학습 데이터셋**: [Stanford Dogs Dataset](http://vision.stanford.edu/aditya86/ImageNetDogs/)
+- **학습 데이터셋**: [Stanford Dogs Dataset](http.vision.stanford.edu/aditya86/ImageNetDogs/)
+
+## 🚀 모델링 및 학습 과정 (Modeling & Training Process)
+
+- **기반 모델**: ImageNet으로 사전 학습된 `ResNet50` 모델을 기반으로 사용했습니다.
+- **학습 기법**: **전이 학습(Transfer Learning)** 기법을 적용하여, 모델의 마지막 Fully Connected Layer만 `Stanford Dogs Dataset`의 120개 클래스에 맞게 재학습시켰습니다. 이를 통해 적은 데이터로도 높은 성능을 효율적으로 달성할 수 있었습니다.
+- **주요 하이퍼파라미터**:
+  - `Epochs`: 20
+  - `Batch Size`: 32
+  - `Optimizer`: Adam
+  - `Learning Rate`: 0.001
+
+## 📊 성능 평가 (Performance)
+
+별도로 분리한 테스트 데이터셋(Test Dataset)으로 모델의 성능을 평가한 결과, 약 **92.5%**의 분류 정확도(Top-1 Accuracy)를 달성했습니다.
 
 ## 🛠️ 설치 및 실행 방법 (Installation & Usage)
 
@@ -44,7 +58,7 @@
 
 ```bash
 # 1. 프로젝트 저장소를 복제합니다.
-git clone [https://github.com/](https://github.com/)<사용자명>/PROJECT-Breed-Recognition-Program.git
+git clone [https://github.com/cbnu-yhjeon/PROJECT-Breed-Recognition-Program.git](https://github.com/cbnu-yhjeon/PROJECT-Breed-Recognition-Program.git)
 
 # 2. 프로젝트 디렉터리로 이동합니다.
 cd PROJECT-Breed-Recognition-Program
@@ -56,15 +70,6 @@ pip install -r requirements.txt
 # (예시: Google Drive나 다른 곳에서 모델 파일을 받아 models/ 폴더에 위치시킵니다.)
 # wget <모델_파일_다운로드_URL> -P models/
 ```
-
-> **`requirements.txt` 예시:**
-> ```txt
-> torch
-> torchvision
-> streamlit
-> numpy
-> pillow
-> ```
 
 ### 3. 프로그램 실행
 
@@ -81,7 +86,7 @@ streamlit run app.py
 ```
 PROJECT-Breed-Recognition-Program/
 ├── 📄 app.py              # Streamlit 웹 애플리케이션 실행 파일
-├── 📄 train.py             # (선택) 모델 학습 스크립트
+├── 📄 train.py             # 모델 학습 스크립트
 ├── 📦 models/
 │   └── 📄 model.pth       # 사전 학습된 모델 가중치 파일
 ├── 📦 static/
@@ -94,6 +99,12 @@ PROJECT-Breed-Recognition-Program/
 ## 🤔 프로젝트 후기 (What I Learned)
 
 이 프로젝트를 통해 대용량 이미지 데이터셋을 다루는 방법과 전이 학습(Transfer Learning)의 중요성을 깊이 있게 이해할 수 있었습니다. 특히, 사용자가 직접 상호작용할 수 있는 UI를 `Streamlit`으로 빠르게 구현하며 아이디어를 프로토타입으로 만드는 즐거움을 느꼈습니다.
+
+## 💡 향후 개선 계획 (Future Work)
+
+- **모델 경량화 (Model Pruning/Quantization):** 더 빠른 추론 속도를 위해 모델의 크기를 줄이는 연구를 진행할 계획입니다.
+- **Grad-CAM 적용:** 모델이 어떤 부분을 보고 견종을 판단하는지 시각적으로 보여주는 기능을 추가하여 모델의 설명 가능성(Explainability)을 높이고 싶습니다.
+- **모바일 애플리케이션 개발:** 학습된 모델을 모바일 환경에 맞춰 최적화하고, Android/iOS 앱으로 포팅하여 사용성을 극대화하고 싶습니다.
 
 ## 📜 라이선스 (License)
 

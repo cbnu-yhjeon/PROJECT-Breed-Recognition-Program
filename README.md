@@ -3,58 +3,49 @@
 <p align="center">
   <img src="https://img.shields.io/badge/status-completed-brightgreen?style=for-the-badge" alt="Status: Completed"/>
   <img src="https://img.shields.io/badge/python-3.9+-blue?style=for-the-badge&logo=python" alt="Python 3.9+"/>
-  <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch" alt="PyTorch"/>
+  <img src="https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow" alt="TensorFlow"/>
+  <img src="https://img.shields.io/badge/opencv-5C3EE8?style=for-the-badge&logo=opencv" alt="OpenCV"/>
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License: MIT"/>
 </p>
 
-딥러닝 기술을 활용하여 강아지 사진을 보고 어떤 품종인지 인식하고 알려주는 프로그램입니다. ResNet50 모델을 기반으로 Stanford Dogs Dataset으로 학습된 모델을 사용합니다. 사용자는 간단한 UI를 통해 이미지를 업로드하고 결과를 바로 확인할 수 있습니다.
+TensorFlow/Keras 프레임워크와 사전 학습된 MobileNetV2 모델을 활용하여 강아지 사진의 품종을 인식하는 프로그램입니다. `train.py`를 통해 모델을 학습시키고, `recognize.py`를 통해 이미지를 입력하여 상위 5개의 예측 결과를 이미지 파일로 저장합니다.
 
 <br>
 
 ## 📸 데모 (Screenshots)
 
+`recognize.py` 실행 시, 테스트 이미지에 예측 확률 상위 5개의 견종 이름과 신뢰도가 표시되어 `<학번>.png` 파일로 저장됩니다.
+
 <p align="center">
-  <img src="./demo.gif" alt="프로그램 실행 데모" width="700"/>
-  <em><p align="center">Streamlit을 이용한 웹 UI 실행 화면</p></em>
+  <img src="<결과_예시_이미지_경로/2025254002.png>" alt="프로그램 실행 데모" width="700"/>
+  <em><p align="center">pug.jpg 이미지에 대한 인식 결과 예시</p></em>
 </p>
 
 ## ✨ 주요 기능 (Key Features)
 
-- **높은 정확도의 견종 분류**: 120종의 다양한 견종을 높은 정확도로 분류합니다.
-- **간단하고 직관적인 UI**: 이미지를 드래그 앤 드롭하여 누구나 쉽게 사용할 수 있습니다.
-- **상위 3개 예측 결과 제공**: 가장 확률이 높은 3가지 견종과 각각의 신뢰도(%)를 함께 보여줍니다.
-- **다양한 이미지 형식 지원**: `jpg`, `jpeg`, `png` 형식의 이미지를 지원합니다.
+- **전이 학습 기반 모델**: ImageNet으로 사전 학습된 MobileNetV2를 사용하여 효율적으로 모델을 학습합니다.
+- **데이터 증강**: `ImageDataGenerator`를 통해 이미지 회전, 이동, 확대 등을 적용하여 모델의 일반화 성능을 높입니다.
+- **자동 모델 저장**: 학습 중 검증 손실(val_loss)이 가장 낮은 최적의 모델을 `<학번>.h5` 파일로 자동 저장합니다.
+- **결과 시각화**: `OpenCV`를 사용하여 원본 이미지에 상위 5개 예측 결과를 텍스트로 그려 저장합니다.
 
 ## 💻 기술 스택 (Tech Stack)
 
-- **언어**: `Python 3.9`
-- **핵심 라이브러리**: `PyTorch`, `Torchvision`
-- **웹 UI**: `Streamlit`
-- **데이터 처리**: `Pillow`, `NumPy`
-- **학습 데이터셋**: [Stanford Dogs Dataset](http.vision.stanford.edu/aditya86/ImageNetDogs/)
+- **언어**: `Python`
+- **핵심 라이브러리**: `TensorFlow`, `Keras`, `OpenCV-Python`, `NumPy`
+- **기반 모델**: `MobileNetV2`
+- **학습 데이터셋**: Stanford Dogs Dataset
 
-## 🚀 모델링 및 학습 과정 (Modeling & Training Process)
+## 🗂️ 주요 파일 설명
 
-- **기반 모델**: ImageNet으로 사전 학습된 `ResNet50` 모델을 기반으로 사용했습니다.
-- **학습 기법**: **전이 학습(Transfer Learning)** 기법을 적용하여, 모델의 마지막 Fully Connected Layer만 `Stanford Dogs Dataset`의 120개 클래스에 맞게 재학습시켰습니다. 이를 통해 적은 데이터로도 높은 성능을 효율적으로 달성할 수 있었습니다.
-- **주요 하이퍼파라미터**:
-  - `Epochs`: 20
-  - `Batch Size`: 32
-  - `Optimizer`: Adam
-  - `Learning Rate`: 0.001
-
-## 📊 성능 평가 (Performance)
-
-별도로 분리한 테스트 데이터셋(Test Dataset)으로 모델의 성능을 평가한 결과, 약 **92.5%**의 분류 정확도(Top-1 Accuracy)를 달성했습니다.
+- **`train.py`**: Stanford Dogs Dataset을 불러와 데이터 증강을 적용하고, 전이 학습을 통해 모델을 훈련시킨 후 `<학번>.h5` 모델 파일과 `dog_species_name.txt`를 생성합니다.
+- **`recognize.py`**: `train.py`로 생성된 모델과 이름 파일을 로드하여, 지정된 테스트 이미지의 견종을 예측하고 결과를 텍스트로 표기한 이미지 파일(`<학번>.png`)을 저장합니다.
+- **`<학번>.h5`**: 훈련된 Keras 모델 가중치 파일입니다.
+- **`dog_species_name.txt`**: 120종의 견종 이름 목록입니다.
+- **`<학번>.png`**: `recognize.py` 실행 시 생성되는 최종 결과 이미지입니다.
 
 ## 🛠️ 설치 및 실행 방법 (Installation & Usage)
 
-### 1. 사전 요구사항
-
-- Python 3.9 이상
-- Git
-
-### 2. 설치 과정
+### 1. 환경 설정
 
 ```bash
 # 1. 프로젝트 저장소를 복제합니다.
@@ -65,46 +56,38 @@ cd PROJECT-Breed-Recognition-Program
 
 # 3. 필요한 라이브러리를 설치합니다.
 pip install -r requirements.txt
-
-# 4. 사전 학습된 모델 가중치를 다운로드합니다.
-# (예시: Google Drive나 다른 곳에서 모델 파일을 받아 models/ 폴더에 위치시킵니다.)
-# wget <모델_파일_다운로드_URL> -P models/
 ```
+> **`requirements.txt` 내용:**
+> ```txt
+> tensorflow
+> opencv-python
+> numpy
+> ```
 
-### 3. 프로그램 실행
+### 2. 모델 학습 (Training)
 
-아래 명령어를 터미널에 입력하여 웹 애플리케이션을 실행합니다.
-
+`Stanford Dogs Dataset`의 `Images` 폴더를 프로젝트 디렉터리 내에 위치시킨 후, 아래 명령어를 실행하여 모델 학습을 시작합니다.
 ```bash
-streamlit run app.py
+python train.py
 ```
+학습이 완료되면 `2025254002.h5` 모델 파일과 `dog_species_name.txt` 파일이 생성됩니다.
 
-명령어 실행 후, 터미널에 나타나는 `Local URL` (예: http://localhost:8501)을 웹 브라우저에서 열어주세요.
+### 3. 견종 인식 (Recognition)
 
-## 📂 프로젝트 구조 (Project Structure)
-
+인식하고 싶은 이미지를 프로젝트 폴더에 넣고, `recognize.py` 파일 내의 `TEST_IMAGE_PATH` 변수를 해당 이미지 파일명으로 수정한 뒤 아래 명령어를 실행합니다.
+```bash
+python recognize.py
 ```
-PROJECT-Breed-Recognition-Program/
-├── 📄 app.py              # Streamlit 웹 애플리케이션 실행 파일
-├── 📄 train.py             # 모델 학습 스크립트
-├── 📦 models/
-│   └── 📄 model.pth       # 사전 학습된 모델 가중치 파일
-├── 📦 static/
-│   └── 🖼️ sample_image.jpg # 예시 이미지
-├── 📄 requirements.txt    # 필요한 파이썬 라이브러리 목록
-├── 📄 .gitignore
-└── 📄 README.md           # 바로 이 파일!
-```
+실행이 완료되면 예측 결과가 그려진 `2025254002.png` 파일이 생성됩니다.
 
-## 🤔 프로젝트 후기 (What I Learned)
+## 🚀 모델링 및 학습 과정 (Modeling & Training Process)
 
-이 프로젝트를 통해 대용량 이미지 데이터셋을 다루는 방법과 전이 학습(Transfer Learning)의 중요성을 깊이 있게 이해할 수 있었습니다. 특히, 사용자가 직접 상호작용할 수 있는 UI를 `Streamlit`으로 빠르게 구현하며 아이디어를 프로토타입으로 만드는 즐거움을 느꼈습니다.
-
-## 💡 향후 개선 계획 (Future Work)
-
-- **모델 경량화 (Model Pruning/Quantization):** 더 빠른 추론 속도를 위해 모델의 크기를 줄이는 연구를 진행할 계획입니다.
-- **Grad-CAM 적용:** 모델이 어떤 부분을 보고 견종을 판단하는지 시각적으로 보여주는 기능을 추가하여 모델의 설명 가능성(Explainability)을 높이고 싶습니다.
-- **모바일 애플리케이션 개발:** 학습된 모델을 모바일 환경에 맞춰 최적화하고, Android/iOS 앱으로 포팅하여 사용성을 극대화하고 싶습니다.
+- **기반 모델**: ImageNet으로 사전 학습된 `MobileNetV2` 모델의 Convolutional Base를 사용했습니다.
+- **학습 기법**: **전이 학습(Transfer Learning)**을 적용했습니다. `MobileNetV2`의 가중치는 동결(`trainable = False`)하고, 모델 위에 `GlobalAveragePooling2D`와 `Dense` Layer로 구성된 새로운 분류기만 훈련시켜 효율성을 높였습니다.
+- **데이터 증강**: `ImageDataGenerator`를 사용하여 훈련 데이터에 한해 회전, 너비/높이 이동, 전단, 확대, 좌우 반전 등 다양한 증강 기법을 적용하여 모델이 과적합되는 것을 방지했습니다.
+- **콜백(Callbacks)**:
+    - **`ModelCheckpoint`**: 검증 손실(`val_loss`)을 기준으로 가장 성능이 좋은 모델만 파일로 저장합니다.
+    - **`EarlyStopping`**: 검증 손실이 5 에포크 동안 개선되지 않으면 학습을 조기 종료하여 불필요한 훈련을 방지합니다.
 
 ## 📜 라이선스 (License)
 

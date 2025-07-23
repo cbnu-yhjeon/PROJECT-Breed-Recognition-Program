@@ -17,10 +17,9 @@ TensorFlow/Keras 프레임워크와 사전 학습된 MobileNetV2 모델을 활�
 `recognize.py` 실행 시, 테스트 이미지에 예측 확률 상위 5개의 견종 이름과 신뢰도가 표시되어 `<학번>.png` 파일로 저장됩니다.
 
 <p align="center">
-  <img src="<https://github.com/cbnu-yhjeon/PROJECT-Breed-Recognition-Program/blob/main/Pug_result.png>" alt="프로그램 실행 데모" width="700"/>
+  <img src="https://github.com/cbnu-yhjeon/PROJECT-Breed-Recognition-Program/raw/main/Pug_result.png" alt="프로그램 실행 데모" width="700"/>
   <em><p align="center">pug.jpg 이미지에 대한 인식 결과 예시</p></em>
 </p>
-
 ## ✨ 주요 기능 (Key Features)
 
 - **전이 학습 기반 모델**: ImageNet으로 사전 학습된 MobileNetV2를 사용하여 효율적으로 모델을 학습합니다.

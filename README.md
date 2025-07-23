@@ -17,7 +17,7 @@ TensorFlow/Keras 프레임워크와 사전 학습된 MobileNetV2 모델을 활�
 `recognize.py` 실행 시, 테스트 이미지에 예측 확률 상위 5개의 견종 이름과 신뢰도가 표시되어 `<학번>.png` 파일로 저장됩니다.
 
 <p align="center">
-  <img src="<결과_예시_이미지_경로/2025254002.png>" alt="프로그램 실행 데모" width="700"/>
+  <img src="<https://github.com/CBike/CBNU_AI/blob/main/Image_Procesing/%EA%B2%AC%EC%A2%85%EC%9D%B8%EC%8B%9D%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8/Pug_result.png?raw=true>" alt="프로그램 실행 데모" width="700"/>
   <em><p align="center">pug.jpg 이미지에 대한 인식 결과 예시</p></em>
 </p>
 
